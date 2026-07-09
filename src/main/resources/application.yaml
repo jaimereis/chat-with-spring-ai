@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring-ai
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llama3.1:8b
+
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        model: gpt-5-nano
+
+    chat:
+      client:
+        enabled: false    
+
+server:
+  port: 9292
