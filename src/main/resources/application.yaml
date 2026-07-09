@@ -1,6 +1,15 @@
 spring:
   application:
     name: spring-ai
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true  
+
+  web:
+    locale: pt_BR
+    locale-resolver: fixed
 
   ai:
     ollama:

@@ -6,6 +6,8 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
+import reactor.core.publisher.Flux;
+
 @Service
 public class OpenAIChatService {
 
@@ -58,6 +60,26 @@ public class OpenAIChatService {
                         .presencePenalty(0.7)
                         .stopSequences(List.of("}")))
                 .call()
+                .content();
+    }
+
+    /**
+     * Envia uma mensagem para o modelo de linguagem da OpenAI e retorna a resposta gerada
+     * de forma reativa, em streaming (token a token).
+     *
+     * @param message A mensagem (prompt) a ser enviada ao modelo.
+     * @return Um {@link Flux} de {@link String} onde cada elemento representa um fragmento
+     *         do conteúdo gerado pelo modelo conforme é produzido, permitindo processamento
+     *         reativo e exibição progressiva da resposta.
+     */
+    public Flux<String> askToAIStream(String message) {
+        return openAIChatClient
+                .prompt(message)
+                .options(OpenAiChatOptions.builder()
+                        .model("gpt-4o-mini")
+                        .temperature(0.1)
+                        .maxTokens(200))
+                .stream()
                 .content();
     }
 
