@@ -10,8 +10,6 @@ spring:
 
     openai:
       api-key: ${OPENAI_API_KEY}
-      chat:
-        model: gpt-5-nano
 
     chat:
       client:
